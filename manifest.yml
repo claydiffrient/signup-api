@@ -1,0 +1,14 @@
+--- 
+applications: 
+  .: 
+    instances: 1
+    mem: 128M
+    framework: 
+      name: node
+      info: 
+        mem: 64M
+        description: Node.js Application
+        exec: 
+    name: signup-api
+    infra: rs
+    url: ${name}.${target-base}
