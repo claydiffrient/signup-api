@@ -3,10 +3,12 @@ var people = require('./routes/people');
 var slots = require('./routes/slots');
 var app = express();
 
+app.enable("jsonp callback");
 app.configure(function()
 {
    app.use(express.bodyParser());
    app.use(app.router);
+
 });
 
 app.get('/people', people.findAll);
