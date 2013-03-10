@@ -1,31 +1,25 @@
 var express = require('express');
-var mongodb = require('mongodb');
-var url = require('url');
+var people = require('./routes/people');
+var slots = require('./routes/slots');
 var app = express();
 
-var mongourl = url.parse(process.env.MONGOHQ_URL);
-var dbName = mongourl.pathname.replace(/^\//, '');
-var mongo = process.env.MONGOHQ_URL;
+
+app.get('/people', people.findAll);
+app.get('/people/:id', people.findById);
+app.post('/people', people.addPerson);
+app.put('/people/:id', people.updatePerson);
+app.delete('/people/:id', people.deletePerson);
+app.get('/slots', slots.findAll);
+app.get('/slots/:id', slots.findById);
+app.post('/slots', slots.addPerson);
+app.put('/slots/:id', slots.updatePerson);
+app.delete('/slots/:id', slots.deletePerson);
 
 app.get('/', function(req, res)
 {
-   record_visit(req, res);
+   res.writeHeader(200, {'Content-Type': 'text/plain'});
+   res.write("Thanks for connecting.  Please issue a command");
+   res.end();
 });
 app.listen(process.env.PORT || 5000);
 
-var record_visit = function(req, res)
-{
-   require('mongodb').connect(mongo, function(err, conn)
-   {
-      conn.collection('ips', function(err, coll)
-      {
-         var object_to_insert = { 'ip': req.connection.remoteAddress, 'ts': new Date()};
-         coll.insert(object_to_insert, {safe:true}, function(err)
-         {
-            res.writeHeader(200, {'Content-Type': 'text/plain'});
-            res.write(JSON.stringify(object_to_insert));
-            res.end('\n');
-         });
-      });
-   });
-}
