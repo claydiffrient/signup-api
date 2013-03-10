@@ -1,9 +1,9 @@
 var mongodb = require('mongodb');
 var url = require('url');
-var mongourl = url.parse(process.env.MONGOHQ_URL);
-var dbName = mongourl.pathname.replace(/^\//, '');
-var mongo = process.env.MONGOHQ_URL;
+var mongo = process.env.MONGOHQ_URL || "mongodb://localhost:27017/db";
 var BSON = mongodb.BSONPure;
+
+
 
 exports.findAll = function(req, res)
 {
@@ -39,7 +39,6 @@ exports.findById = function(req, res)
 exports.addPerson = function(req, res)
 {
    var person = req.body;
-   console.log('Adding person: ' + JSON.stringify(person));
    mongodb.connect(mongo, function(err, conn)
    {
       conn.collection('people', function(err, coll)

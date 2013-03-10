@@ -3,6 +3,11 @@ var people = require('./routes/people');
 var slots = require('./routes/slots');
 var app = express();
 
+app.configure(function()
+{
+   app.use(express.bodyParser());
+   app.use(app.router);
+});
 
 app.get('/people', people.findAll);
 app.get('/people/:id', people.findById);
@@ -11,9 +16,9 @@ app.put('/people/:id', people.updatePerson);
 app.delete('/people/:id', people.deletePerson);
 app.get('/slots', slots.findAll);
 app.get('/slots/:id', slots.findById);
-app.post('/slots', slots.addPerson);
-app.put('/slots/:id', slots.updatePerson);
-app.delete('/slots/:id', slots.deletePerson);
+app.post('/slots', slots.addSlot);
+app.put('/slots/:id', slots.updateSlot);
+app.delete('/slots/:id', slots.deleteSlot);
 
 app.get('/', function(req, res)
 {
@@ -21,5 +26,8 @@ app.get('/', function(req, res)
    res.write("Thanks for connecting.  Please issue a command");
    res.end();
 });
-app.listen(process.env.PORT || 5000);
+
+
+
+app.listen(process.env.PORT || 3000);
 

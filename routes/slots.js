@@ -1,8 +1,6 @@
 var mongodb = require('mongodb');
 var url = require('url');
-var mongourl = url.parse(process.env.MONGOHQ_URL);
-var dbName = mongourl.pathname.replace(/^\//, '');
-var mongo = process.env.MONGOHQ_URL;
+var mongo = process.env.MONGOHQ_URL || "mongodb://localhost:27017/db";
 
 exports.findAll = function(req, res)
 {
@@ -46,7 +44,7 @@ exports.addSlot = function(req, res)
          {
             if (err)
             {
-               res.send({'Error', 'An error has occurred'});
+               res.send({'Error':'An error has occurred'});
             }
             else
             {
