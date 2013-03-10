@@ -48,7 +48,7 @@ exports.addPerson = function(req, res)
          {
             if (err)
             {
-               res.send({'Error', 'An error has occurred'});
+               res.send({'Error': 'An error has occurred'});
             }
             else
             {
