@@ -8,6 +8,8 @@ app.configure(function()
 {
    app.use(express.bodyParser());
    app.use(app.router);
+   app.use(express.compress());
+   app.use('/',express.static(__dirname + '/public'));
 
 });
 
@@ -22,12 +24,14 @@ app.post('/slots', slots.addSlot);
 app.put('/slots/:id', slots.updateSlot);
 app.delete('/slots/:id', slots.deleteSlot);
 
+/*
 app.get('/', function(req, res)
 {
    res.writeHeader(200, {'Content-Type': 'text/plain'});
    res.write("Thanks for connecting.  Please issue a command");
    res.end();
 });
+*/
 
 
 

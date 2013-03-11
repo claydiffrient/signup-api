@@ -1,6 +1,7 @@
 var mongodb = require('mongodb');
 var url = require('url');
 var mongo = process.env.MONGOHQ_URL || "mongodb://localhost:27017/db";
+var BSON = mongodb.BSONPure;
 
 exports.findAll = function(req, res)
 {
@@ -60,6 +61,7 @@ exports.updateSlot = function(req, res)
 {
    var id = req.params.id;
    var slot = req.body;
+   console.log([id, slot]);
    mongodb.connect(mongo, function(err, conn)
    {
       conn.collection('slots', function(err, coll)
